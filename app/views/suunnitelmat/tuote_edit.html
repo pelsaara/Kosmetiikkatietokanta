@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Muokkaa tuotetta Too Faced: Better than sex mascara</h1>
+  <form>
+    <div class="form-group">
+      <label>Tuote</label>
+      <input type="text" class="form-control" value="Better than sex mascara">
+    </div>
+    <div class="form-group">
+      <label>Merkki</label>
+      <input type="text" class="form-control" value="Too Faced">
+    </div>
+    <div class="form-group">
+      <label>Kuvaus</label>
+       <textarea class="form-control"> Tuuheuttava ja pidentävä maskara.</textarea>
+    </div>
+    <div class="form-group">
+      <label>INCI</label>
+      <textarea class="form-control">Water/aqua/eau, Synthetic Beeswax, Paraffin, Glyceryl Stearate, Acacia Senegal Gum, Butylene Glycol, Oryza Sativa (Rice) Bran Wax, Stearic Acid, Palmitic Acid, Polybutene, VP/Eicosene Copolymer, Cera Carnauba/Copernicia Cerifera (Carnauba) Wax/Cire de carnauba, Aminomethyl Propanol, Glycerin, Ethylhexylglycerin, Hydroxyethylcellulose, Disodium EDTA, Polyester-11, PVP, Cellulose, Trimethylpentanediol/Adipic Acid/Glycerin Crosspolymer, Propylene Glycol, Acacia Senegal Gum Extract, Potassium Sorbate, Dextran, Acetyl Hexapeptide-1. May Contain/Peut Contenir/(+/-): Iron Oxides (CI 77499), Black 2 (CI 77266), Ultramarines (CI 77007)      </textarea>
+    <div class="form-group">
+      <label>Kategoriat</label>
+      <input type="text" class="form-control" value="värikosmetiikka, ripsiväri">
+    </div>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+  </form>
+{% endblock %}
