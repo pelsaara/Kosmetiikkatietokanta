@@ -8,17 +8,17 @@ $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
 });
 
-$routes->get('/tuote', function() {
+$routes->get('/suunnitelmat/tuote_list', function() {
     HelloWorldController::tuote_list();
 });
-$routes->get('/tuote/1', function() {
+$routes->get('/suunnitelmat/tuote_show', function() {
     HelloWorldController::tuote_show();
 });
 
-$routes->get('/login', function() {
+$routes->get('/suunnitelmat/login', function() {
     HelloWorldController::login();
 });
 
-$routes->get('/tuote/1/edit', function() {
+$routes->get('suunnitelmat/tuote_edit', function() {
     HelloWorldController::tuote_edit();
 });
