@@ -5,7 +5,7 @@ Yleisiä linkkejä:
 * [Linkki sovellukseeni](http://pelsaara.users.cs.helsinki.fi/tsoha/)
 * [Linkki dokumentaatiooni](https://github.com/pelsaara/Kosmetiikkatietokanta/blob/master/dokumentaatio.pdf)
 
-*[Linkki HTML-näkymien suunnitelmiin](https://github.com/pelsaara/Kosmetiikkatietokanta/tree/master/app/views/suunnitelmat)
+* [Linkki HTML-näkymien suunnitelmiin](https://github.com/pelsaara/Kosmetiikkatietokanta/tree/master/app/views/suunnitelmat)
 Linkit sovelluksessa eivät toimi.Vika ilmeisesti routes-tiedostossa.
 
 ## Työn aihe
