@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Tuotteet</h1>
+
+  <p>
+    <a href="#" class="btn btn-primary">Lisää tuote</a>
+  </p>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Tuote</th>
+        <th>Merkki</th>
+        <th>Kuvaus</th>
+        <th>Kategoriat</th>
+        <th>Arvioita</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>     
+      {% for product in products %}
+      <tr>
+        <td><a href="{{base_path}}/tuote/{{product.id}}">{{product.name}}</a></td>
+        <td>{{product.brand}}</td>
+        <td>{{product.description}}</td>
+        <td><label class="label label-info">värikosmetiikka</label> <label class="label label-info">ripsiväri</label></td>
+        <td>2</td>
+        <th><a class="btn btn-default btn-sm" href="{{base_path}}/tuote/{{product.id}}/edit">Muokkaa</a></th>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
