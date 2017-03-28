@@ -19,6 +19,14 @@ $routes->get('/suunnitelmat/login', function() {
     HelloWorldController::login();
 });
 
+$routes->get('/suunnitelmat/register', function() {
+    HelloWorldController::register();
+});
+
+$routes->get('/suunnitelmat/mypage', function() {
+    HelloWorldController::mypage();
+});
+
 $routes->get('/suunnitelmat/tuote_edit', function() {
     HelloWorldController::tuote_edit();
 });
