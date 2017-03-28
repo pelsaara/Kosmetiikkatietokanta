@@ -27,6 +27,15 @@ $routes->get('/product', function(){
   ProductController::index();
 });
 
+$routes->post('/product', function(){
+  ProductController::store();
+});
+
+$routes->get('/product/new', function(){
+  ProductController::create();
+});
+
 $routes->get('/product/:id', function($id){
   ProductController::show($id);
 });
+

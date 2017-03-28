@@ -1,19 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>{{product.name}}</h1>
-  <h2>{{product.brand}}</h2>
-  <p>
+{% if message %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endif %}
+<h1>{{product.name}}</h1>
+<h2>{{product.brand}}</h2>
+<p>
     <button class="btn btn-primary">Lisää arvio</button> <a href="#" class="btn btn-default">Muokkaa</a>
-  </p>
+</p>
 
- <h3>Kuvaus:</h3><p>{{product.description}}</p>
+<h3>Kuvaus:</h3><p>{{product.description}}</p>
 <h3>INCI:</h3> <p>{{product.ingredients}}</p>
 <h3>Kategoriat:</h3> <label class="label label-info">värikosmetiikka</label> <label class="label label-info">ripsiväri</label>
 
 <h3>Arvioita: (2) </h3> 
 <strong> Käyttäjä</strong><p>
-Lemppariripsariii ei klumppiinnu eikä kuivu nopeesti. Ripset näyttää ihan tekoripsiltä! Huono puoli heikko (olematon) saatavuus Suomesta.</p>
+    Lemppariripsariii ei klumppiinnu eikä kuivu nopeesti. Ripset näyttää ihan tekoripsiltä! Huono puoli heikko (olematon) saatavuus Suomesta.</p>
 
 <strong> Käyttäjä2</strong><p>
-Tätä on useamman kerran käyty hakemassa rapakon takaa! Luottomeikkituote, pysyy ripsissä eikä varise!</p>
+    Tätä on useamman kerran käyty hakemassa rapakon takaa! Luottomeikkituote, pysyy ripsissä eikä varise!</p>
 {% endblock %}

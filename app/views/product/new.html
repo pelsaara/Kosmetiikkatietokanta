@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Lisää uusi tuote</h1>
+
+<form method="post" action="{{base_path}}/product">
+    <div class="form-group">
+        <label>Tuote</label>
+        <input type="text" name="name" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label>Merkki</label> <br>
+        <select name="brand">
+            {% for brand in brands %}
+            <option value="{{brand.id}}">{{brand.name}}</option>
+            {% endfor %}
+        </select><br>
+    </div>
+
+    <div class="form-group">
+        <label>Kuvaus</label>
+        <textarea name="description" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>INCI</label>
+        <textarea name="ingredients" class="form-control"></textarea>
+    </div>
+
+    <!---- kategorioiden lisäys toteutettava myöh. 
+    <div class="form-group">
+        <label>Kategoriat</label>
+        <input type="text" class="form-control" value="värikosmetiikka, ripsiväri">
+    </div>
+    ---->
+    
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Lisää</button>
+    </div>
+</form>
+{% endblock %}
