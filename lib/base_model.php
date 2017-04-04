@@ -28,20 +28,20 @@ class BaseModel {
         return array_filter($errors);
     }
 
-    public function validate_string_length($string, $length) {
-        $errors = array();
-        if (strlen($this->name) < $length) {
-            $errors[] = 'Tekstin pituuden tulee olla vähintään ' . $length . ' merkkiä!';
+    public function validate_string_length($nimi, $string, $length) {
+        $error = null;
+        if (strlen($string) < $length) {
+            $error = ($nimi . ' pituuden tulee olla vähintään ' . $length . ' merkkiä!');
         }
-        return $errors;
+        return $error;
     }
 
-    public function validate_not_null($string) {
-        $errors = array();
-        if ($this->name == '' || $this->name == null) {
-            $errors[] = 'Tekstikenttä ei saa olla tyhjä!';
+    public function validate_not_null($nimi, $string) {
+        $error = null;
+        if ($string == '' || $string == null) {
+            $error = ($nimi . ' ei saa olla tyhjä!');
         }
-        return $errors;
+        return $error;
     }
 
 }
