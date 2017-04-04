@@ -2,7 +2,7 @@
 
 Yleisiä linkkejä:
 
-* [Linkki sovellukseeni](http://pelsaara.users.cs.helsinki.fi/tsoha/hiekkalaatikko)
+* [Linkki sovellukseeni](http://pelsaara.users.cs.helsinki.fi/tsoha/)
 * [Linkki dokumentaatiooni](https://github.com/pelsaara/Kosmetiikkatietokanta/blob/master/doc/dokumentaatio.pdf)
 * [Linkki käyttöohjeeseen](https://github.com/pelsaara/Kosmetiikkatietokanta/blob/master/kaytto-ohje.md)
 
