@@ -4,8 +4,14 @@
 <h1>{{product.name}}</h1>
 <h2>{{product.brand}}</h2>
 <p>
-    <button class="btn btn-primary">Lisää arvio</button> <a href="#" class="btn btn-default">Muokkaa</a>
-</p>
+    <button class="btn btn-primary">Lisää arvio</button> 
+    </p>
+<form method="get" action="{{base_path}}/product/{{product.id}}/edit" style="display: inline-block;">
+  <button type="submit" class="btn btn-default">Muokkaa</button>
+</form>
+<form method="post" action="{{base_path}}/product/{{product.id}}/destroy" style="display: inline-block;">
+  <button type="submit" class="btn btn-danger">Poista</button>
+</form>
 
 <h3>Kuvaus:</h3><p>{{product.description}}</p>
 <h3>INCI:</h3> <p>{{product.ingredients}}</p>

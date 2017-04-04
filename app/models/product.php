@@ -52,10 +52,21 @@ class Product extends BaseModel {
         $this->id = $row['id'];
     }
 
+    public function update() {
+        $query = DB::connection()->prepare('UPDATE Product SET name = :name, brand = :brand, description = :description, ingredients = :ingredients WHERE ID = :id');
+        $query->execute(array('name' => $this->name, 'brand' => $this->brand, 'description' => $this->description, 'ingredients' => $this->ingredients, 'id' => $this->id));
+        $row = $query->fetch();
+    }
+
+    public function delete() {
+        $query = DB::connection()->prepare('DELETE FROM Product WHERE id = :id');
+        $query->execute(array('id' => $this->id));      
+    }
+
     public function validate_name() {
         $errors = array();
-        $errors[] = parent::validate_not_null('Nimi',$this->name);
-        $errors[] = parent::validate_string_length('Nimen',$this->name, 3);
+        $errors[] = parent::validate_not_null('Nimi', $this->name);
+        $errors[] = parent::validate_string_length('Nimen', $this->name, 3);
 
         return $errors;
     }
@@ -73,7 +84,7 @@ class Product extends BaseModel {
     public function validate_description() {
         $errors = array();
         if (!empty($this->description)) {
-            $errors[] = parent::validate_string_length('Kuvauksen',$this->description, 5);
+            $errors[] = parent::validate_string_length('Kuvauksen', $this->description, 5);
         }
         return $errors;
     }
@@ -81,7 +92,7 @@ class Product extends BaseModel {
     public function validate_ingredients() {
         $errors = array();
         if (!empty($this->ingredients)) {
-            $errors[] = parent::validate_string_length('INCI-luettelon',$this->ingredients, 5);
+            $errors[] = parent::validate_string_length('INCI-luettelon', $this->ingredients, 5);
         }
         return $errors;
     }
