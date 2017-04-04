@@ -6,6 +6,7 @@ class Product extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array('validate_name', 'validate_brand', 'validate_description', 'validate_ingredients');
     }
 
     public static function all() {
@@ -49,6 +50,40 @@ class Product extends BaseModel {
         $query->execute(array('name' => $this->name, 'brand' => $this->brand, 'description' => $this->description, 'ingredients' => $this->ingredients));
         $row = $query->fetch();
         $this->id = $row['id'];
+    }
+
+    public function validate_name() {
+        $errors = array();
+        $errors[] = parent::validate_not_null($this->name);
+        $errors[] = parent::validate_string_length($this->name, 3);
+
+        return $errors;
+    }
+
+    public function validate_brand() {
+        $errors = array();
+        $errors[] = parent::validate_not_null($this->brand);
+        if (!is_numeric($this->brand)) {
+            $errors[] = 'Brändiä ei valittu oikein!';
+        }
+
+        return $errors;
+    }
+
+    public function validate_description() {
+        $errors = array();
+        if (!empty($this->description)) {
+            $errors[] = parent::validate_string_length($this->description, 5);
+        }
+        return $errors;
+    }
+
+    public function validate_ingredients() {
+        $errors = array();
+        if (!empty($this->ingredients)) {
+            $errors[] = parent::validate_string_length($this->ingredients, 5);
+        }
+        return $errors;
     }
 
 }

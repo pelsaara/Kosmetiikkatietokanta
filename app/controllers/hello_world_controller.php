@@ -3,18 +3,31 @@
 class HelloWorldController extends BaseController {
 
     public static function index() {
-        // make-metodi renderöi app/views-kansiossa sijaitsevia tiedostoja
+// make-metodi renderöi app/views-kansiossa sijaitsevia tiedostoja
         View::make('home.html');
     }
 
     public static function sandbox() {
-        // Testaa koodiasi täällä
-        $rip = Product::find(1);
-        $tuot = Product::all();
+// Testaa koodiasi täällä
+        $test = new Product(array(
+            'name' => 'diiivv',
+            'brand' => 'salkdfj',
+            'description' => 'Boom, boom!',
+            'ingredients' => ''
+        ));
+        $errors = $test->errors();
+        if ($errors){
+            echo 'onko';
+        }
+        Kint::dump($errors);
 
-        Kint::dump($tuot);
-        Kint::dump($rip);
-        //View::make('helloworld.html');
+
+//        $rip = Product::find(1);
+//        $tuot = Product::all();
+//
+//        Kint::dump($tuot);
+//        Kint::dump($rip);
+//View::make('helloworld.html');
     }
 
     public static function tuote_list() {
