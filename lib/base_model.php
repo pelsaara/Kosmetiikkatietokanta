@@ -21,30 +21,27 @@ class BaseModel {
         $errors = array();
 
         foreach ($this->validators as $validator) {
-            var_dump($this->{$validator}());
-//            if (!empty($this->{$validator}())){
-//                $errors = array_merge($errors, $this->{$validator}());
-//            }
-            
+
+            $errors = array_merge($errors, $this->{$validator}());
         }
 
-        return $errors;
+        return array_filter($errors);
     }
 
     public function validate_string_length($string, $length) {
-        $error = null;
+        $errors = array();
         if (strlen($this->name) < $length) {
-            $error = 'Tekstin pituuden tulee olla vähintään ' . $length . ' merkkiä!';
+            $errors[] = 'Tekstin pituuden tulee olla vähintään ' . $length . ' merkkiä!';
         }
-        return $error;
+        return $errors;
     }
 
     public function validate_not_null($string) {
-        $error = null;
+        $errors = array();
         if ($this->name == '' || $this->name == null) {
-            $error = 'Tekstikenttä ei saa olla tyhjä!';
-            return $error;
+            $errors[] = 'Tekstikenttä ei saa olla tyhjä!';
         }
+        return $errors;
     }
 
 }

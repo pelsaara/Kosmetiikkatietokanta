@@ -11,7 +11,7 @@ class HelloWorldController extends BaseController {
 // Testaa koodiasi täällä
         $test = new Product(array(
             'name' => 'diiivv',
-            'brand' => 'salkdfj',
+            'brand' => 'lkjdsaf',
             'description' => 'Boom, boom!',
             'ingredients' => ''
         ));
