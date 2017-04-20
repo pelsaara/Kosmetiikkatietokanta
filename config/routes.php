@@ -70,3 +70,11 @@ $routes->post('/login', function() {
 $routes->post('/logout', function() {
     ConsumerController::logout();
 });
+
+$routes->get('/register', function() {
+    ConsumerController::register();
+});
+
+$routes->post('/register', function() {
+    ConsumerController::store();
+});

@@ -1,26 +1,26 @@
 <?php
 
-class Category extends BaseModel {
+class Comment extends BaseModel {
 
-    public $id, $name;
+    public $id, $comment;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
     }
 
     public static function all() {
-        $query = DB::connection()->prepare('SELECT * FROM Category');
+        $query = DB::connection()->prepare('SELECT * FROM Comment');
         $query->execute();
         $rows = $query->fetchAll();
-        $category = array();
+        $comment = array();
 
         foreach ($rows as $row) {
-            $category[] = new Category(array(
+            $comment[] = new Comment(array(
                 'id' => $row['id'],
-                'name' => $row['name']
+                'comment' => $row['comment']
             ));
         }
-        return $category;
+        return $comment;
     }
 
     public static function find($id) {
@@ -44,6 +44,5 @@ class Category extends BaseModel {
         $row = $query->fetch();
         $this->id = $row['id'];
     }
-    
 }
 

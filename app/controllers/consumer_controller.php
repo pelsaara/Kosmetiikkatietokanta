@@ -24,5 +24,27 @@ class ConsumerController extends BaseController {
         $_SESSION['consumer'] = null;
         Redirect::to('/login', array('message' => 'Olet kirjautunut ulos!'));
     }
+    
+    public static function register(){
+        View::make('consumer/register.html');
+    }
+    
+    public static function store() {
+        $params = $_POST;
+
+        $attributes = array(
+            'name' => $params['name'],
+            'password' => $params['password'],
+            'age' => $params['age']
+        );
+        $consumer = new Consumer($attributes);
+        //$errors = $consumer->errors();
+        //if (count($errors) == 0) {
+            $consumer->save();
+            Redirect::to('/login', array('message' => 'Rekisteröityminen onnistunut'));
+        //} else {
+        //    View::make('/register.html', array('errors' => $errors, 'attributes' => $attributes));
+        //}
+    }
 
 }
