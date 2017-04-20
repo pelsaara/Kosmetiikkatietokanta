@@ -24,11 +24,11 @@ class ConsumerController extends BaseController {
         $_SESSION['consumer'] = null;
         Redirect::to('/login', array('message' => 'Olet kirjautunut ulos!'));
     }
-    
-    public static function register(){
+
+    public static function register() {
         View::make('consumer/register.html');
     }
-    
+
     public static function store() {
         $params = $_POST;
 
@@ -40,53 +40,52 @@ class ConsumerController extends BaseController {
         $consumer = new Consumer($attributes);
         //$errors = $consumer->errors();
         //if (count($errors) == 0) {
-            $consumer->save();
-            Redirect::to('/login', array('message' => 'Rekisteröityminen onnistunut'));
+        $consumer->save();
+        Redirect::to('/login', array('message' => 'Rekisteröityminen onnistunut'));
         //} else {
         //    View::make('/register.html', array('errors' => $errors, 'attributes' => $attributes));
         //}
     }
-    
-        public static function show() {
+
+    public static function show() {
+        self::check_logged_in();
         $consumer = self::get_user_logged_in();
         View::make('consumer/mypage.html', array('consumer' => $consumer));
     }
-    
-        public static function edit($id) {
-        $consumer = get_user_logged_in();
+
+    public static function edit($id) {
+        self::check_logged_in();
+        $consumer = self::get_user_logged_in();
         View::make('consumer/edit.html', array('attributes' => $consumer));
     }
-    
-        public static function update($id) {
+
+    public static function update($id) {
         self::check_logged_in();
         $params = $_POST;
 
         $attributes = array(
             'id' => $id,
             'name' => $params['name'],
-            'brand' => $params['brand'],
-            'description' => $params['description'],
-            'ingredients' => $params['ingredients']
+            'password' => $params['password'],
+            'age' => $params['age']
         );
 
-        $product = new Product($attributes);
-        $errors = $product->errors();
-
-        if (count($errors) > 0) {
-            View::make('product/edit.html', array('errors' => $errors, 'attributes' => $attributes));
-        } else {
-            $product->update();
-            Redirect::to('/product/' . $product->id, array('message' => 'Tuotetta on muokattu onnistuneesti!'));
-        }
+        $consumer = new Consumer($attributes);
+//        $errors = $consumer->errors();
+//       if (count($errors) > 0) {
+//            View::make('product/edit.html', array('errors' => $errors, 'attributes' => $attributes));
+//        } else {
+        $consumer->update();
+        Redirect::to('/mypage', array('message' => 'Tietoja on muokattu onnistuneesti!'));
+//        }
     }
-
 
     public static function destroy($id) {
         self::check_logged_in();
-        $product = new Product(array('id' => $id));
-        $product->delete();
-
-        Redirect::to('/product', array('message' => 'Tuote on poistettu onnistuneesti!'));
+        $consumer = self::get_user_logged_in();
+        $_SESSION['consumer'] = null;
+        $consumer->delete();
+        Redirect::to('/', array('message' => 'Käyttäjä on poistettu onnistuneesti!'));
     }
 
 }

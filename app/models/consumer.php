@@ -42,11 +42,16 @@ class Consumer extends BaseModel {
     }
 
     public function save() {
-
         $query = DB::connection()->prepare('INSERT INTO Consumer (name, password, age) VALUES (:name, :password, :age) RETURNING id');
         $query->execute(array('name' => $this->name, 'password' => $this->password, 'age' => $this->age));
         $row = $query->fetch();
         $this->id = $row['id'];
+    }
+
+    public function update() {
+        $query = DB::connection()->prepare('UPDATE Consumer SET name = :name, password = :password, age = :age WHERE ID = :id');
+        $query->execute(array('name' => $this->name, 'password' => $this->password, 'age' => $this->age, 'id' => $this->id));
+        $row = $query->fetch();
     }
 
     public function authenticate($name, $password) {
@@ -65,12 +70,12 @@ class Consumer extends BaseModel {
             return null;
         }
     }
-    
-        public function delete() {
+
+    public function delete() {
         $first = DB::connection()->prepare('DELETE FROM Comment WHERE consumer = :id');
-        $first->execute(array('id' => $this->id));    
+        $first->execute(array('id' => $this->id));
         $query = DB::connection()->prepare('DELETE FROM Consumer WHERE id = :id');
-        $query->execute(array('id' => $this->id));      
+        $query->execute(array('id' => $this->id));
     }
 
 }
