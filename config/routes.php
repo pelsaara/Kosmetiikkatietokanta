@@ -87,6 +87,10 @@ $routes->get('/mypage', function() {
     ConsumerController::show();
 });
 
+$routes->get('/consumer', function(){
+ConsumerController::listAll();
+});
+
 $routes->get('/consumer/:id/edit', function($id) {
     ConsumerController::edit($id);
 });
@@ -97,8 +101,8 @@ $routes->post('/consumer/:id/edit', function($id) {
 
 $routes->post('/consumer/:id/destroy', function($id) {
     ConsumerController::destroy($id);
-});
-
+});    
+    
 // Kategoriaan liittyvät 
 $routes->get('/category', function(){
     CategoryController::listAll();

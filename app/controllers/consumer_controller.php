@@ -40,8 +40,8 @@ class ConsumerController extends BaseController {
         $consumer = new Consumer($attributes);
         $errors = $consumer->errors();
         if (count($errors) == 0) {
-        $consumer->save();
-        Redirect::to('/login', array('message' => 'Rekisteröityminen onnistunut'));
+            $consumer->save();
+            Redirect::to('/login', array('message' => 'Rekisteröityminen onnistunut'));
         } else {
             View::make('/consumer/register.html', array('errors' => $errors, 'attributes' => $attributes));
         }
@@ -71,13 +71,13 @@ class ConsumerController extends BaseController {
         );
 
         $consumer = new Consumer($attributes);
-//        $errors = $consumer->errors();
-//       if (count($errors) > 0) {
-//            View::make('consumer/edit.html', array('errors' => $errors, 'attributes' => $attributes));
-//        } else {
-        $consumer->update();
-        Redirect::to('/mypage', array('message' => 'Tietoja on muokattu onnistuneesti!'));
-//        }
+        $errors = $consumer->errors();
+        if (count($errors) > 0) {
+            View::make('consumer/edit.html', array('errors' => $errors, 'attributes' => $attributes));
+        } else {
+            $consumer->update();
+            Redirect::to('/mypage', array('message' => 'Tietoja on muokattu onnistuneesti!'));
+        }
     }
 
     public static function destroy($id) {
@@ -86,6 +86,12 @@ class ConsumerController extends BaseController {
         $_SESSION['consumer'] = null;
         $consumer->delete();
         Redirect::to('/', array('message' => 'Käyttäjä on poistettu onnistuneesti!'));
+    }
+
+    public static function listAll() {
+        self::check_logged_in_admin();
+        $consumers = Consumer::all();
+        View::make('consumer/list.html', array('consumers' => $consumers));
     }
 
 }
