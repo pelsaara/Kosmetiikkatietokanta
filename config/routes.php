@@ -60,10 +60,13 @@ $routes->post('/product/:id/destroy', function($id) {
 });
 
 $routes->get('/login', function() {
-    UserController::login();
+    ConsumerController::login();
 });
 
 $routes->post('/login', function() {
-    UserController::handle_login();
+    ConsumerController::handle_login();
 });
 
+$routes->post('/logout', function() {
+    ConsumerController::logout();
+});

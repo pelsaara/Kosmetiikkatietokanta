@@ -13,11 +13,13 @@ class ProductController extends BaseController {
     }
 
     public static function create() {
+        self::check_logged_in();
         $brands = Brand::all();
         View::make('product/new.html', array('brands' => $brands));
     }
 
     public static function store() {
+        self::check_logged_in();
         $params = $_POST;
 
         $attributes = array(
@@ -38,12 +40,14 @@ class ProductController extends BaseController {
     }
 
     public static function edit($id) {
+        self::check_logged_in();
         $product = Product::find($id);
         $brands = Brand::all();
         View::make('product/edit.html', array('attributes' => $product, 'brands' => $brands));
     }
 
     public static function update($id) {
+        self::check_logged_in();
         $params = $_POST;
 
         $attributes = array(
@@ -67,6 +71,7 @@ class ProductController extends BaseController {
 
 
     public static function destroy($id) {
+        self::check_logged_in();
         $product = new Product(array('id' => $id));
         $product->delete();
 
