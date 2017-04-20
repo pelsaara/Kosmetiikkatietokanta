@@ -2,10 +2,8 @@
 {% block content %}
 
 <h1>{{product.name}}</h1>
-<h2>{{product.brand}}</h2>
-<p>
-    <button class="btn btn-primary">Lisää arvio</button> 
-    </p>
+<h3>{{product.brandname}}</h3>
+
 <form method="get" action="{{base_path}}/product/{{product.id}}/edit" style="display: inline-block;">
   <button type="submit" class="btn btn-default">Muokkaa</button>
 </form>
@@ -18,6 +16,7 @@
 <h3>Kategoriat:</h3> <label class="label label-info">värikosmetiikka</label> <label class="label label-info">ripsiväri</label>
 
 <h3>Arvioita: (2) </h3> 
+<p><button class="btn btn-primary">Lisää arvio</button> </p>
 <strong> Käyttäjä</strong><p>
     Lemppariripsariii ei klumppiinnu eikä kuivu nopeesti. Ripset näyttää ihan tekoripsiltä! Huono puoli heikko (olematon) saatavuus Suomesta.</p>
 

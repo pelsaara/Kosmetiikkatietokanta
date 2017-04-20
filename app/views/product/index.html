@@ -14,7 +14,7 @@
         <th>Kuvaus</th>
         <th>Kategoriat</th>
         <th>Arvioita</th>
-        <th></th>
+
       </tr>
     </thead>
 
@@ -22,11 +22,10 @@
       {% for product in products %}
       <tr>
         <td><a href="{{base_path}}/product/{{product.id}}">{{product.name}}</a></td>
-        <td>{{product.brand}}</td>
+        <td>{{product.brandname}}</td>
         <td>{{product.description}}</td>
         <td><label class="label label-info">värikosmetiikka</label> <label class="label label-info">ripsiväri</label></td>
         <td>2</td>
-        <th><a class="btn btn-default btn-sm" href="{{base_path}}/tuote/{{product.id}}/edit">Muokkaa</a></th>
       </tr>
       {% endfor %}
     </tbody>

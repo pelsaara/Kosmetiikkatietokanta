@@ -2,7 +2,7 @@
 
 class Product extends BaseModel {
 
-    public $id, $name, $brand, $description, $ingredients;
+    public $id, $name, $brand, $description, $ingredients, $brandname;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -10,7 +10,7 @@ class Product extends BaseModel {
     }
 
     public static function all() {
-        $query = DB::connection()->prepare('SELECT * FROM Product');
+        $query = DB::connection()->prepare('SELECT Product.id AS id, Product.name AS name, Product.brand AS brand, Product.description AS description, Product.ingredients AS ingredients, Brand.name AS brandname FROM Product, Brand WHERE Product.brand = Brand.id');
         $query->execute();
         $rows = $query->fetchAll();
         $products = array();
@@ -21,14 +21,15 @@ class Product extends BaseModel {
                 'name' => $row['name'],
                 'brand' => $row['brand'],
                 'description' => $row['description'],
-                'ingredients' => $row['ingredients']
+                'ingredients' => $row['ingredients'],
+                'brandname' => $row['brandname']
             ));
         }
         return $products;
     }
 
     public static function find($id) {
-        $query = DB::connection()->prepare('SELECT * FROM Product WHERE id = :id LIMIT 1');
+        $query = DB::connection()->prepare('SELECT Product.id AS id, Product.name AS name, Product.brand AS brand, Product.description AS description, Product.ingredients AS ingredients, Brand.name AS brandname FROM Product, Brand WHERE Product.id = :id AND Product.brand = Brand.id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
 
@@ -38,7 +39,8 @@ class Product extends BaseModel {
                 'name' => $row['name'],
                 'brand' => $row['brand'],
                 'description' => $row['description'],
-                'ingredients' => $row['ingredients']
+                'ingredients' => $row['ingredients'],
+                'brandname' => $row['brandname']
             ));
         }
         return $product;
@@ -60,7 +62,7 @@ class Product extends BaseModel {
 
     public function delete() {
         $query = DB::connection()->prepare('DELETE FROM Product WHERE id = :id');
-        $query->execute(array('id' => $this->id));      
+        $query->execute(array('id' => $this->id));
     }
 
     public function validate_name() {

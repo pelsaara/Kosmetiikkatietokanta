@@ -73,7 +73,7 @@ class ConsumerController extends BaseController {
         $consumer = new Consumer($attributes);
 //        $errors = $consumer->errors();
 //       if (count($errors) > 0) {
-//            View::make('product/edit.html', array('errors' => $errors, 'attributes' => $attributes));
+//            View::make('consumer/edit.html', array('errors' => $errors, 'attributes' => $attributes));
 //        } else {
         $consumer->update();
         Redirect::to('/mypage', array('message' => 'Tietoja on muokattu onnistuneesti!'));
