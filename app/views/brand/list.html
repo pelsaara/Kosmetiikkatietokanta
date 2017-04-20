@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Merkit</h1>
+
+  <p>
+    <a href="{{base_path}}/brand/new" class="btn btn-primary">Lisää Merkit</a>
+  </p>
+
+    <ul> 
+      {% for brand in brands %}
+      <li><a href="{{base_path}}/brand/{{brand.id}}">{{brand.name}}</a></li>
+      {% endfor %}
+    </ul>
+ 
+{% endblock %}

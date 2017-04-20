@@ -116,3 +116,20 @@ $routes->get('/category/:id', function($id){
     CategoryController::show($id);
 });
 
+
+// Merkkiin liittyvät 
+$routes->get('/brand', function(){
+    BrandController::listAll();
+});
+
+$routes->post('/brand', function(){
+    BrandController::store();
+});
+
+$routes->get('/brand/new', function() {
+    BrandController::create();
+});
+
+$routes->get('/brand/:id', function($id){
+    BrandController::show($id);
+});

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Lisää merkki</h1>
+<form method="post" action="{{base_path}}/brand">
+
+    <div class="form-group">
+        <label>Merkin nimi</label>
+        <input type="text" name="name" class="form-control" value="{{attributes.name}}">
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Lisää</button>
+</form>
+{% endblock %}
