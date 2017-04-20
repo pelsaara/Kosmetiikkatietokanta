@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Omat tiedot</h1>
+  <h2>{{consumer.name}}</h2>
+<ul>
+<li><strong>Salasana:</strong> {{consumer.password}}</li>
+<li><strong>Ikä:</strong> {{consumer.age}}</li>
+</ul>
+<form method="get" action="{{base_path}}/mypage/{{consumer.id}}/edit" style="display: inline-block;">
+  <button type="submit" class="btn btn-default">Muokkaa tietoja</button>
+</form>
+<form method="post" action="{{base_path}}/mypage/{{consumer.id}}/destroy" style="display: inline-block;">
+  <button type="submit" class="btn btn-danger">Poista käyttäjä</button>
+</form>
+
+<!--- Jotain millä katsoa omat arviot? Ja omien arvioiden poisto---->
+{% endblock %}

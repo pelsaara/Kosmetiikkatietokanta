@@ -78,3 +78,19 @@ $routes->get('/register', function() {
 $routes->post('/register', function() {
     ConsumerController::store();
 });
+
+$routes->get('/mypage', function() {
+    ConsumerController::show();
+});
+
+$routes->get('/consumer/:id/edit', function($id) {
+    ConsumerController::edit($id);
+});
+
+$routes->post('/consumer/:id/edit', function($id) {
+    ConsumerController::update($id);
+});
+
+$routes->post('/consumer/:id/destroy', function($id) {
+    ConsumerController::destroy($id);
+});

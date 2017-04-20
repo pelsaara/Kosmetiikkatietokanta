@@ -46,5 +46,47 @@ class ConsumerController extends BaseController {
         //    View::make('/register.html', array('errors' => $errors, 'attributes' => $attributes));
         //}
     }
+    
+        public static function show() {
+        $consumer = self::get_user_logged_in();
+        View::make('consumer/mypage.html', array('consumer' => $consumer));
+    }
+    
+        public static function edit($id) {
+        $consumer = get_user_logged_in();
+        View::make('consumer/edit.html', array('attributes' => $consumer));
+    }
+    
+        public static function update($id) {
+        self::check_logged_in();
+        $params = $_POST;
+
+        $attributes = array(
+            'id' => $id,
+            'name' => $params['name'],
+            'brand' => $params['brand'],
+            'description' => $params['description'],
+            'ingredients' => $params['ingredients']
+        );
+
+        $product = new Product($attributes);
+        $errors = $product->errors();
+
+        if (count($errors) > 0) {
+            View::make('product/edit.html', array('errors' => $errors, 'attributes' => $attributes));
+        } else {
+            $product->update();
+            Redirect::to('/product/' . $product->id, array('message' => 'Tuotetta on muokattu onnistuneesti!'));
+        }
+    }
+
+
+    public static function destroy($id) {
+        self::check_logged_in();
+        $product = new Product(array('id' => $id));
+        $product->delete();
+
+        Redirect::to('/product', array('message' => 'Tuote on poistettu onnistuneesti!'));
+    }
 
 }
