@@ -1,15 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Kategoriat</h1>
+  <h1>{{category.name}}</h1>
+  <p> Tähän listataan tähän kategoriaan liittyvät tuotteet. </p>
 
-  <p>
-    <a href="{{base_path}}/category/new" class="btn btn-primary">Lisää Kategoria</a>
-  </p>
-
-    <ul> 
+<!--    <ul> 
       {% for category in categories %}
       <li><a href="{{base_path}}/category/{{category.id}}">{{category.name}}</a></li>
       {% endfor %}
-    </ul>
+    </ul>-->
  
 {% endblock %}
+

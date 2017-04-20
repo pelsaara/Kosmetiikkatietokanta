@@ -38,13 +38,13 @@ class ConsumerController extends BaseController {
             'age' => $params['age']
         );
         $consumer = new Consumer($attributes);
-        //$errors = $consumer->errors();
-        //if (count($errors) == 0) {
+        $errors = $consumer->errors();
+        if (count($errors) == 0) {
         $consumer->save();
         Redirect::to('/login', array('message' => 'Rekisteröityminen onnistunut'));
-        //} else {
-        //    View::make('/register.html', array('errors' => $errors, 'attributes' => $attributes));
-        //}
+        } else {
+            View::make('/consumer/register.html', array('errors' => $errors, 'attributes' => $attributes));
+        }
     }
 
     public static function show() {

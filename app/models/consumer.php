@@ -6,6 +6,7 @@ class Consumer extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array('validate_name', 'validate_password', 'validate_age');
     }
 
     public static function all() {
@@ -76,6 +77,30 @@ class Consumer extends BaseModel {
         $first->execute(array('id' => $this->id));
         $query = DB::connection()->prepare('DELETE FROM Consumer WHERE id = :id');
         $query->execute(array('id' => $this->id));
+    }
+
+    public function validate_name() {
+        $errors = array();
+        $errors[] = parent::validate_not_null('Nimi', $this->name);
+        $errors[] = parent::validate_string_length('Nimen', $this->name, 3);
+        return $errors;
+    }
+
+    public function validate_password() {
+        $errors = array();
+        $errors[] = parent::validate_not_null('Salasana', $this->password);
+        $errors[] = parent::validate_string_length('Salasanan', $this->password, 5);
+        return $errors;
+    }
+    
+        public function validate_age() {
+        $errors = array();
+        $errors[] = parent::validate_not_null('Ikä', $this->age);
+        if (!is_numeric($this->age)) {
+            $errors[] = 'Ikä tulee ilmoittaa numeroina';
+        }
+
+        return $errors;
     }
 
 }

@@ -8,6 +8,7 @@ $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
 });
 
+// Suunnitelmat
 $routes->get('/suunnitelmat/tuote_list', function() {
     HelloWorldController::tuote_list();
 });
@@ -31,8 +32,9 @@ $routes->get('/suunnitelmat/tuote_edit', function() {
     HelloWorldController::tuote_edit();
 });
 
+// Tuotteeseen liittyvät
 $routes->get('/product', function() {
-    ProductController::index();
+    ProductController::listAll();
 });
 
 $routes->post('/product', function() {
@@ -59,6 +61,8 @@ $routes->post('/product/:id/destroy', function($id) {
     ProductController::destroy($id);
 });
 
+
+//Käyttäjään liittyvät
 $routes->get('/login', function() {
     ConsumerController::login();
 });
@@ -94,3 +98,21 @@ $routes->post('/consumer/:id/edit', function($id) {
 $routes->post('/consumer/:id/destroy', function($id) {
     ConsumerController::destroy($id);
 });
+
+// Kategoriaan liittyvät 
+$routes->get('/category', function(){
+    CategoryController::listAll();
+});
+
+$routes->post('/category', function(){
+    CategoryController::store();
+});
+
+$routes->get('/category/new', function() {
+    CategoryController::create();
+});
+
+$routes->get('/category/:id', function($id){
+    CategoryController::show($id);
+});
+

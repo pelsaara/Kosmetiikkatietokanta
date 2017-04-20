@@ -6,6 +6,7 @@ class Category extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array('validate_name');
     }
 
     public static function all() {
@@ -38,12 +39,19 @@ class Category extends BaseModel {
     }
 
     public function save() {
-     
+
         $query = DB::connection()->prepare('INSERT INTO Category (name) VALUES (:name) RETURNING id');
         $query->execute(array('name' => $this->name));
         $row = $query->fetch();
         $this->id = $row['id'];
     }
-    
-}
 
+    public function validate_name() {
+        $errors = array();
+        $errors[] = parent::validate_not_null('Kategorian nimi', $this->name);
+        $errors[] = parent::validate_string_length('Kategorian nimen', $this->name, 4);
+
+        return $errors;
+    }
+
+}

@@ -2,9 +2,9 @@
 
 class ProductController extends BaseController {
 
-    public static function index() {
+    public static function listAll() {
         $products = Product::all();
-        View::make('product/index.html', array('products' => $products));
+        View::make('product/list.html', array('products' => $products));
     }
 
     public static function show($id) {
