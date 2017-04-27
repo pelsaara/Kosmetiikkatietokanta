@@ -25,7 +25,29 @@ class Product extends BaseModel {
                 'brandname' => $row['brandname'],
                 'categories' => Product::findCategories($row['id']),
                 'comments' => Product::findComments($row['id']),
-                'commentAmount' =>count(Product::findComments($row['id']))
+                'commentAmount' => count(Product::findComments($row['id']))
+            ));
+        }
+        return $products;
+    }
+
+    public static function findByCategory($id) {
+        $query = DB::connection()->prepare('SELECT Product.id AS id, Product.name AS name, Product.brand AS brand, Product.description AS description, Product.ingredients AS ingredients, Brand.name AS brandname FROM Product, Brand, ProductCategory, Category WHERE Product.brand = Brand.id AND ProductCategory.product = Product.id AND ProductCategory.category = Category.id AND Category.id = :id');
+        $query->execute(array('id' => $id));
+        $rows = $query->fetchAll();
+        $products = array();
+
+        foreach ($rows as $row) {
+            $products[] = new Product(array(
+                'id' => $row['id'],
+                'name' => $row['name'],
+                'brand' => $row['brand'],
+                'description' => $row['description'],
+                'ingredients' => $row['ingredients'],
+                'brandname' => $row['brandname'],
+                'categories' => Product::findCategories($row['id']),
+                'comments' => Product::findComments($row['id']),
+                'commentAmount' => count(Product::findComments($row['id']))
             ));
         }
         return $products;
@@ -75,8 +97,8 @@ class Product extends BaseModel {
         $list = array();
         foreach ($rows as $row) {
             $list[] = new ProductCategory(array(
-                'product' => $row['product'],
-                'category' => $row['category'],
+                'product_id' => $row['product'],
+                'category_id' => $row['category'],
                 'categoryname' => $row['name']
             ));
         }

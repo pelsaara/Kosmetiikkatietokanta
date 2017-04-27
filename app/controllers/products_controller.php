@@ -7,6 +7,11 @@ class ProductController extends BaseController {
         View::make('product/list.html', array('products' => $products));
     }
 
+    public static function listAllByCategory($id) {
+        $products = Product::findByCategory($id);
+        View::make('category/show.html', array('products' => $products));
+    }
+
     public static function show($id) {
         $product = Product::find($id);
         View::make('product/show.html', array('product' => $product));
@@ -68,7 +73,6 @@ class ProductController extends BaseController {
             Redirect::to('/product/' . $product->id, array('message' => 'Tuotetta on muokattu onnistuneesti!'));
         }
     }
-
 
     public static function destroy($id) {
         self::check_logged_in();

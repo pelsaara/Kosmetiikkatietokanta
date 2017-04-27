@@ -25,7 +25,7 @@
             <td>{{product.brandname}}</td>
             <td>{{product.description}}</td>
             <td>{% for category in product.categories %}
-                <label class="label label-info">{{category.categoryname}}</label>
+                <label class="label label-info"><a style="color:white;" href="{{base_path}}/product_category/{{category.category_id}}">{{category.categoryname}}</a></label>
                 {% endfor %}</td>
             <td>{{product.commentAmount}}</td>
         </tr>

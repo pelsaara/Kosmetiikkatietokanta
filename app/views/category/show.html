@@ -1,9 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
   <h1>{{category.name}}</h1>
-  <p> Tähän listataan tähän kategoriaan liittyvät tuotteet. </p>
+<p>
+    <a href="{{base_path}}/product/new" class="btn btn-primary">Lisää tuote</a>
+</p>
 
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Tuote</th>
+            <th>Merkki</th>
+            <th>Kuvaus</th>
+            <th>Kategoriat</th>
+            <th>Arvioita</th>
 
- 
+        </tr>
+    </thead>
+
+    <tbody>     
+        {% for product in products %}
+        <tr>
+            <td><a href="{{base_path}}/product/{{product.id}}">{{product.name}}</a></td>
+            <td>{{product.brandname}}</td>
+            <td>{{product.description}}</td>
+            <td>{% for category in product.categories %}
+                <label class="label label-info">{{category.categoryname}}</label>
+                {% endfor %}</td>
+            <td>{{product.commentAmount}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
 

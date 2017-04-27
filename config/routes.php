@@ -37,6 +37,10 @@ $routes->get('/product', function() {
     ProductController::listAll();
 });
 
+$routes->get('/product_category/:id', function($id) {
+    ProductController::listAllByCategory($id);
+});
+
 $routes->post('/product', function() {
     ProductController::store();
 });
