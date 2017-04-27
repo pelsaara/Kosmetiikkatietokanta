@@ -12,6 +12,11 @@ class ProductController extends BaseController {
         View::make('category/show.html', array('products' => $products));
     }
 
+    public static function listAllByBrand($id) {
+        $products = Product::findByBrand($id);
+        View::make('brand/show.html', array('products' => $products));
+    }
+
     public static function show($id) {
         $product = Product::find($id);
         View::make('product/show.html', array('product' => $product));

@@ -37,10 +37,6 @@ $routes->get('/product', function() {
     ProductController::listAll();
 });
 
-$routes->get('/product_category/:id', function($id) {
-    ProductController::listAllByCategory($id);
-});
-
 $routes->post('/product', function() {
     ProductController::store();
 });
@@ -120,8 +116,8 @@ $routes->get('/category/new', function() {
     CategoryController::create();
 });
 
-$routes->get('/category/:id', function($id){
-    CategoryController::show($id);
+$routes->get('/category/:id', function($id) {
+    ProductController::listAllByCategory($id);
 });
 
 
@@ -138,6 +134,6 @@ $routes->get('/brand/new', function() {
     BrandController::create();
 });
 
-$routes->get('/brand/:id', function($id){
-    BrandController::show($id);
+$routes->get('/brand/:id', function($id) {
+    ProductController::listAllByBrand($id);
 });

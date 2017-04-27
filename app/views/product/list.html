@@ -22,7 +22,7 @@
         {% for product in products %}
         <tr>
             <td><a href="{{base_path}}/product/{{product.id}}">{{product.name}}</a></td>
-            <td>{{product.brandname}}</td>
+            <td><a style="color:black;" href="{{base_path}}/brand/{{product.brand}}">{{product.brandname}}</a></td>
             <td>{{product.description}}</td>
             <td>{% for category in product.categories %}
                 <label class="label label-info"><a style="color:white;" href="{{base_path}}/product_category/{{category.category_id}}">{{category.categoryname}}</a></label>
