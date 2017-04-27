@@ -2,7 +2,7 @@
 
 class Product extends BaseModel {
 
-    public $id, $name, $brand, $description, $ingredients, $brandname;
+    public $id, $name, $brand, $description, $ingredients, $brandname, $categories, $comments, $commentAmount;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -22,7 +22,10 @@ class Product extends BaseModel {
                 'brand' => $row['brand'],
                 'description' => $row['description'],
                 'ingredients' => $row['ingredients'],
-                'brandname' => $row['brandname']
+                'brandname' => $row['brandname'],
+                'categories' => Product::findCategories($row['id']),
+                'comments' => Product::findComments($row['id']),
+                'commentAmount' =>count(Product::findComments($row['id']))
             ));
         }
         return $products;
@@ -34,6 +37,7 @@ class Product extends BaseModel {
         $row = $query->fetch();
 
         if ($row) {
+            $categoryFinder = Product::findCategories($id);
             $product = new Product(array(
                 'id' => $row['id'],
                 'name' => $row['name'],
@@ -42,8 +46,41 @@ class Product extends BaseModel {
                 'ingredients' => $row['ingredients'],
                 'brandname' => $row['brandname']
             ));
+            $product->categories = $categoryFinder;
+            $product->comments = Product::findComments($id);
         }
         return $product;
+    }
+
+    public static function findComments($id) {
+        $query = DB::connection()->prepare('SELECT * FROM Comment INNER JOIN Consumer ON Comment.consumer = Consumer.id WHERE product = :id');
+        $query->execute(array('id' => $id));
+        $rows = $query->fetchAll();
+        $list = array();
+        foreach ($rows as $row) {
+            $list[] = new Comment(array(
+                'text' => $row['comment'],
+                'product_id' => $row['product'],
+                'writer_id' => $row['consumer'],
+                'writername' => $row['name']
+            ));
+        }
+        return $list;
+    }
+
+    public static function findCategories($id) {
+        $query = DB::connection()->prepare('SELECT * FROM ProductCategory INNER JOIN Category ON ProductCategory.category = Category.id WHERE ProductCategory.product = :id');
+        $query->execute(array('id' => $id));
+        $rows = $query->fetchAll();
+        $list = array();
+        foreach ($rows as $row) {
+            $list[] = new ProductCategory(array(
+                'product' => $row['product'],
+                'category' => $row['category'],
+                'categoryname' => $row['name']
+            ));
+        }
+        return $list;
     }
 
     public function save() {

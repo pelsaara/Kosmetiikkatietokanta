@@ -12,13 +12,17 @@ class BaseController {
         return null;
     }
 
-    public static function user_logged_in_admin() {
+    public static function get_admin_logged_in() {
         if (isset($_SESSION['consumer'])) {
             $consumer_id = $_SESSION['consumer'];
-
-            return ($consumer_id==8);
+            $consumer = Consumer::find($consumer_id);
+            
+            if ($consumer_id == 1){
+                return $consumer;
+            }
+            
         }
-        return false;
+        return null;
     }
 
     public static function check_logged_in() {
@@ -32,7 +36,7 @@ class BaseController {
             $consumer_id = $_SESSION['consumer'];
             $consumer = Consumer::find($consumer_id);
 
-            if ($consumer_id != 8) {
+            if ($consumer_id != 1) {
                 Redirect::to('/mypage', array('error' => 'Tämä sivu on vain ylläpitäjälle!'));
             }
         } else {

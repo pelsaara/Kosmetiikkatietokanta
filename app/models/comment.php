@@ -2,7 +2,7 @@
 
 class Comment extends BaseModel {
 
-    public $id, $comment;
+    public $id, $text, $product_id, $writer_id, $writername;
 
     public function __construct($attributes) {
         parent::__construct($attributes);

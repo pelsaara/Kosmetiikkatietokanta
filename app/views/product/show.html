@@ -13,13 +13,17 @@
 
 <h3>Kuvaus:</h3><p>{{product.description}}</p>
 <h3>INCI:</h3> <p>{{product.ingredients}}</p>
-<h3>Kategoriat:</h3> <label class="label label-info">värikosmetiikka</label> <label class="label label-info">ripsiväri</label>
+<h3>Kategoriat:</h3> 
+{% for category in product.categories %}
+<label class="label label-info">{{category.categoryname}}</label>
+{% endfor %}
 
-<h3>Arvioita: (2) </h3> 
+<h3>Arvioita: </h3> 
 <p><button class="btn btn-primary">Lisää arvio</button> </p>
-<strong> Käyttäjä</strong><p>
-    Lemppariripsariii ei klumppiinnu eikä kuivu nopeesti. Ripset näyttää ihan tekoripsiltä! Huono puoli heikko (olematon) saatavuus Suomesta.</p>
 
-<strong> Käyttäjä2</strong><p>
-    Tätä on useamman kerran käyty hakemassa rapakon takaa! Luottomeikkituote, pysyy ripsissä eikä varise!</p>
+{% for comment in product.comments %}
+<strong>{{comment.writername}}</strong><p>{{comment.text}}</p>
+{% endfor %}
+
+
 {% endblock %}
