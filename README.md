@@ -5,8 +5,8 @@ Yleisiä linkkejä:
 * [Linkki sovellukseeni](http://pelsaara.users.cs.helsinki.fi/tsoha/)
 * [Linkki dokumentaatiooni](https://github.com/pelsaara/Kosmetiikkatietokanta/blob/master/doc/dokumentaatio.pdf)
 
-* Toimiva käyttäjätunnus: Minni 
-* Toimiva salasana: Minni123
+* Toimiva käyttäjätunnus: Lilli 
+* Toimiva salasana: Lilli123
 * Ylläpitäjän tunnukset: 'Yllapitaja', 'ylppi'. 
 * Ylläpitäjä pääsee listaukseen, josta näkee kaikki käyttäjät ja pystyy hallinnoimaan niitä.
 * Edit: Ylläpitäjä on poistettu ja listaus ei ole enää nähtävissä. Koodin ei pitänyt olla vielä poistotoimintoa tukevaa joten kieltämättä kiusallinen tilanne.
