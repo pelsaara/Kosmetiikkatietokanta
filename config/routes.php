@@ -4,34 +4,6 @@ $routes->get('/', function() {
     HelloWorldController::index();
 });
 
-$routes->get('/hiekkalaatikko', function() {
-    HelloWorldController::sandbox();
-});
-
-// Suunnitelmat
-$routes->get('/suunnitelmat/tuote_list', function() {
-    HelloWorldController::tuote_list();
-});
-$routes->get('/suunnitelmat/tuote_show', function() {
-    HelloWorldController::tuote_show();
-});
-
-$routes->get('/suunnitelmat/login', function() {
-    HelloWorldController::login();
-});
-
-$routes->get('/suunnitelmat/register', function() {
-    HelloWorldController::register();
-});
-
-$routes->get('/suunnitelmat/mypage', function() {
-    HelloWorldController::mypage();
-});
-
-$routes->get('/suunnitelmat/tuote_edit', function() {
-    HelloWorldController::tuote_edit();
-});
-
 // Tuotteeseen liittyvät
 $routes->get('/product', function() {
     ProductController::listAll();

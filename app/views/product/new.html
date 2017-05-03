@@ -27,13 +27,15 @@
         <textarea name="ingredients" class="form-control">{{attributes.ingredients}}</textarea>
     </div>
 
-    <!---- kategorioiden lisäys toteutettava myöh. 
     <div class="form-group">
-        <label>Kategoriat</label>
-        <input type="text" class="form-control" value="värikosmetiikka, ripsiväri">
+        <label>Kategoria</label>
+        <select class="form-control" name="categories[]" multiple="">
+            {% for category in categories %}
+            <option value="{{category.id}}">{{category.name}}</option>
+            {% endfor %}
+        </select>
     </div>
-    ---->
-    
+
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Lisää</button>
     </div>

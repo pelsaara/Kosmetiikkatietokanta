@@ -132,7 +132,7 @@ class Product extends BaseModel {
         $query = DB::connection()->prepare('INSERT INTO Product (name, brand, description, ingredients) VALUES (:name, :brand, :description, :ingredients) RETURNING id');
         $query->execute(array('name' => $this->name, 'brand' => $this->brand, 'description' => $this->description, 'ingredients' => $this->ingredients));
         $row = $query->fetch();
-        $this->id = $row['id'];
+        $this->id = $row['id'];       
     }
 
     public function update() {
