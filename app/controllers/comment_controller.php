@@ -9,7 +9,7 @@ class CommentController extends BaseController {
         $params = $_POST;
 
         $attributes = array(
-            'text' => $params['comment'],
+            'text' => trim($params['comment']),
             'product_id' => $params['product_id'],
             'writer_id' => $consumer->id
         ); 

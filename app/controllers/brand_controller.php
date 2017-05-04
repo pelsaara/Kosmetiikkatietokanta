@@ -12,7 +12,7 @@ class BrandController extends BaseController {
         $params = $_POST;
 
         $attributes = array(
-            'name' => $params['name'],
+            'name' => trim($params['name'])
         );
         $brands = new Brand($attributes);
         $errors = $brands->errors();

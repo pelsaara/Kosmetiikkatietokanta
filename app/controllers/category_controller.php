@@ -12,7 +12,7 @@ class CategoryController extends BaseController {
         $params = $_POST;
 
         $attributes = array(
-            'name' => $params['name'],
+            'name' => trim($params['name'])
         );
         $category = new Category($attributes);
         $errors = $category->errors();

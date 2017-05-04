@@ -2,7 +2,7 @@
 {% block content %}
 <h1>Rekisteröidy</h1>
 <form method="post" action="{{base_path}}/register">
-
+    <p>Nimimerkin ja salasanan alussa ja lopussa ei voi olla välilyöntejä.</p>
     <div class="form-group">
         <label>Nimimerkki</label>
         <input type="text" name="name" class="form-control" value="{{attributes.name}}">

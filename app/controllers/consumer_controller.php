@@ -33,9 +33,9 @@ class ConsumerController extends BaseController {
         $params = $_POST;
 
         $attributes = array(
-            'name' => $params['name'],
-            'password' => $params['password'],
-            'age' => $params['age']
+            'name' => trim($params['name']),
+            'password' => trim($params['password']),
+            'age' => trim($params['age'])
         );
         $consumer = new Consumer($attributes);
         $errors = $consumer->errors();
