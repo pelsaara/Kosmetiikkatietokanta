@@ -89,7 +89,7 @@ $routes->get('/category/new', function() {
 });
 
 $routes->get('/category/:id', function($id) {
-    ProductController::listAllByCategory($id);
+    CategoryController::listProductsByCategory($id);
 });
 
 
@@ -107,5 +107,14 @@ $routes->get('/brand/new', function() {
 });
 
 $routes->get('/brand/:id', function($id) {
-    ProductController::listAllByBrand($id);
+    BrandController::listProductsByBrand($id);
+});
+
+// Kommentteihin liittyvät
+$routes->get('/product/:id/comment', function($id) {
+    CommentController::create($id);
+});
+
+$routes->post('/product/:id', function($id) {
+    CommentController::store($id);
 });

@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Lisää kommentti</h1>
+<form method="post" action="{{base_path}}/product/{{product.id}}">
 <div class="form-group">
   <label>Kommentti</label>
   <textarea class="form-control" name="comment"></textarea>
   <input type="hidden" name="product_id" value="{{product.id}}">
+  </div>
   <button type="submit" class="btn btn-primary">Lähetä</button>
-</div>
+
+</form>
 {% endblock %}

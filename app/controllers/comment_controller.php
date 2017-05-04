@@ -4,27 +4,31 @@
 class CommentController extends BaseController {
 
 
-    public static function store() {
-        self::check_logged_in();
+    public static function store($id) {
+        $consumer = self::get_user_logged_in();
         $params = $_POST;
 
         $attributes = array(
             'text' => $params['comment'],
-            'product_id' => $params['product_id']
+            'product_id' => $params['product_id'],
+            'writer_id' => $consumer->id
         ); 
+        
         $comment = new Comment($attributes);
         $errors = $comment->errors();
         if (count($errors) == 0) {
         $comment->save();
-        Redirect::to('/category', array('message' => 'Kategorian lisäys onnistunut'));
+        Redirect::to('/product/'. $id, array('message' => 'Kommentin lisäys onnistunut'));
         } else {
-            View::make('/category/new.html', array('errors' => $errors, 'attributes' => $attributes));
+        $product = Product::find($id);
+            View::make('/comment/new.html', array('errors' => $errors, 'product' => $product));
         }
     }
 
-    public static function create() {
+    public static function create($id) {
         self::check_logged_in();
-        View::make('comment/new.html');
+        $product = Product::find($id);
+        View::make('comment/new.html',array('product' => $product) );
     }
     
 

@@ -32,50 +32,66 @@ class Product extends BaseModel {
     }
 
     public static function findByBrand($id) {
+        if (!is_numeric($id)) {
+            return NULL;
+        }
         $query = DB::connection()->prepare('SELECT Product.id AS id, Product.name AS name, Product.brand AS brand, Product.description AS description, Product.ingredients AS ingredients, Brand.name AS brandname FROM Product, Brand WHERE Product.brand = Brand.id AND Brand.id=:id');
         $query->execute(array('id' => $id));
         $rows = $query->fetchAll();
-        $products = array();
 
-        foreach ($rows as $row) {
-            $products[] = new Product(array(
-                'id' => $row['id'],
-                'name' => $row['name'],
-                'brand' => $row['brand'],
-                'description' => $row['description'],
-                'ingredients' => $row['ingredients'],
-                'brandname' => $row['brandname'],
-                'categories' => Product::findCategories($row['id']),
-                'comments' => Product::findComments($row['id']),
-                'commentAmount' => count(Product::findComments($row['id']))
-            ));
+        if ($rows) {
+            $products = array();
+
+            foreach ($rows as $row) {
+                $products[] = new Product(array(
+                    'id' => $row['id'],
+                    'name' => $row['name'],
+                    'brand' => $row['brand'],
+                    'description' => $row['description'],
+                    'ingredients' => $row['ingredients'],
+                    'brandname' => $row['brandname'],
+                    'categories' => Product::findCategories($row['id']),
+                    'comments' => Product::findComments($row['id']),
+                    'commentAmount' => count(Product::findComments($row['id']))
+                ));
+            }
+            return $products;
         }
-        return $products;
+        return NULL;
     }
 
     public static function findByCategory($id) {
+        if (!is_numeric($id)) {
+            return NULL;
+        }
         $query = DB::connection()->prepare('SELECT Product.id AS id, Product.name AS name, Product.brand AS brand, Product.description AS description, Product.ingredients AS ingredients, Brand.name AS brandname FROM Product, Brand, ProductCategory, Category WHERE Product.brand = Brand.id AND ProductCategory.product = Product.id AND ProductCategory.category = Category.id AND Category.id = :id');
         $query->execute(array('id' => $id));
         $rows = $query->fetchAll();
-        $products = array();
 
-        foreach ($rows as $row) {
-            $products[] = new Product(array(
-                'id' => $row['id'],
-                'name' => $row['name'],
-                'brand' => $row['brand'],
-                'description' => $row['description'],
-                'ingredients' => $row['ingredients'],
-                'brandname' => $row['brandname'],
-                'categories' => Product::findCategories($row['id']),
-                'comments' => Product::findComments($row['id']),
-                'commentAmount' => count(Product::findComments($row['id']))
-            ));
+        if ($rows) {
+            $products = array();
+            foreach ($rows as $row) {
+                $products[] = new Product(array(
+                    'id' => $row['id'],
+                    'name' => $row['name'],
+                    'brand' => $row['brand'],
+                    'description' => $row['description'],
+                    'ingredients' => $row['ingredients'],
+                    'brandname' => $row['brandname'],
+                    'categories' => Product::findCategories($row['id']),
+                    'comments' => Product::findComments($row['id']),
+                    'commentAmount' => count(Product::findComments($row['id']))
+                ));
+            }
+            return $products;
         }
-        return $products;
+        return NULL;
     }
 
     public static function find($id) {
+        if (!is_numeric($id)) {
+            return NULL;
+        }
         $query = DB::connection()->prepare('SELECT Product.id AS id, Product.name AS name, Product.brand AS brand, Product.description AS description, Product.ingredients AS ingredients, Brand.name AS brandname FROM Product, Brand WHERE Product.id = :id AND Product.brand = Brand.id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
@@ -92,8 +108,9 @@ class Product extends BaseModel {
             ));
             $product->categories = $categoryFinder;
             $product->comments = Product::findComments($id);
+            return $product;
         }
-        return $product;
+        return NULL;
     }
 
     public static function findComments($id) {
@@ -132,7 +149,7 @@ class Product extends BaseModel {
         $query = DB::connection()->prepare('INSERT INTO Product (name, brand, description, ingredients) VALUES (:name, :brand, :description, :ingredients) RETURNING id');
         $query->execute(array('name' => $this->name, 'brand' => $this->brand, 'description' => $this->description, 'ingredients' => $this->ingredients));
         $row = $query->fetch();
-        $this->id = $row['id'];       
+        $this->id = $row['id'];
     }
 
     public function update() {
@@ -142,6 +159,10 @@ class Product extends BaseModel {
     }
 
     public function delete() {
+        $query = DB::connection()->prepare('DELETE FROM Comment WHERE product = :id');
+        $query->execute(array('id' => $this->id));
+        $query = DB::connection()->prepare('DELETE FROM ProductCategory WHERE product = :id');
+        $query->execute(array('id' => $this->id));
         $query = DB::connection()->prepare('DELETE FROM Product WHERE id = :id');
         $query->execute(array('id' => $this->id));
     }
@@ -150,7 +171,7 @@ class Product extends BaseModel {
         $errors = array();
         $errors[] = parent::validate_not_null('Nimi', $this->name);
         $errors[] = parent::validate_string_length('Nimen', $this->name, 3);
-
+        $errors[] = parent::validate_string_max('Nimen', $this->name, 30);
         return $errors;
     }
 
@@ -168,6 +189,7 @@ class Product extends BaseModel {
         $errors = array();
         if (!empty($this->description)) {
             $errors[] = parent::validate_string_length('Kuvauksen', $this->description, 5);
+            $errors[] = parent::validate_string_max('Kuvauksen', $this->description, 500);
         }
         return $errors;
     }
@@ -176,6 +198,7 @@ class Product extends BaseModel {
         $errors = array();
         if (!empty($this->ingredients)) {
             $errors[] = parent::validate_string_length('INCI-luettelon', $this->ingredients, 5);
+            $errors[] = parent::validate_string_max('INCI-luettelon', $this->ingredients, 500);
         }
         return $errors;
     }

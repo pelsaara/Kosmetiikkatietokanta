@@ -17,8 +17,8 @@ class BrandController extends BaseController {
         $brands = new Brand($attributes);
         $errors = $brands->errors();
         if (count($errors) == 0) {
-        $brands->save();
-        Redirect::to('/brand', array('message' => 'Merkin lisäys onnistunut'));
+            $brands->save();
+            Redirect::to('/brand', array('message' => 'Merkin lisäys onnistunut'));
         } else {
             View::make('/brand/new.html', array('errors' => $errors, 'attributes' => $attributes));
         }
@@ -28,11 +28,15 @@ class BrandController extends BaseController {
         self::check_logged_in();
         View::make('brand/new.html');
     }
-    
-    public static function show($id){
+
+    public static function listProductsByBrand($id) {
+        $products = Product::findByBrand($id);
         $brand = Brand::find($id);
-        View::make('brand/show.html', array('brand' => $brand));
+        if ($brand != NULL) {
+            View::make('brand/show.html', array('products' => $products, 'brand' => $brand));
+        } else {
+            Redirect::to('/brand', array('error' => 'Merkkiä ei löydy!'));
+        }
     }
 
 }
-

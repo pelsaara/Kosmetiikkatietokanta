@@ -43,5 +43,18 @@ class BaseController {
             Redirect::to('/login', array('message' => 'Kirjaudu ensin sisään!'));
         }
     }
+    
+        public static function check_logged_in_not_admin() {
+        if (isset($_SESSION['consumer'])) {
+            $consumer_id = $_SESSION['consumer'];
+            $consumer = Consumer::find($consumer_id);
+
+            if ($consumer_id == 1) {
+                Redirect::to('/mypage', array('error' => 'Ylläpitäjän tietoja ei voi muokata'));
+            }
+        } else {
+            Redirect::to('/login', array('message' => 'Kirjaudu ensin sisään!'));
+        }
+    }
 
 }

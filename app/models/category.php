@@ -25,6 +25,9 @@ class Category extends BaseModel {
     }
 
     public static function find($id) {
+        if (!is_numeric($id)) {
+            return NULL;
+        }
         $query = DB::connection()->prepare('SELECT * FROM Category WHERE id = :id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
@@ -34,8 +37,9 @@ class Category extends BaseModel {
                 'id' => $row['id'],
                 'name' => $row['name']
             ));
+            return $category;
         }
-        return $category;
+        return NULL;
     }
 
     public function save() {
@@ -50,7 +54,7 @@ class Category extends BaseModel {
         $errors = array();
         $errors[] = parent::validate_not_null('Kategorian nimi', $this->name);
         $errors[] = parent::validate_string_length('Kategorian nimen', $this->name, 4);
-
+        $errors[] = parent::validate_string_max('Kategorian nimen', $this->name, 30);
         return $errors;
     }
 

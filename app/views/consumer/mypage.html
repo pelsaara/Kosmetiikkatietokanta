@@ -6,12 +6,12 @@
 <li><strong>Salasana:</strong> {{consumer.password}}</li>
 <li><strong>Ikä:</strong> {{consumer.age}}</li>
 </ul>
+ {% if consumer.id != 1 %}
 <form method="get" action="{{base_path}}/consumer/{{consumer.id}}/edit" style="display: inline-block;">
   <button type="submit" class="btn btn-default">Muokkaa tietoja</button>
 </form>
 <form method="post" action="{{base_path}}/consumer/{{consumer.id}}/destroy" style="display: inline-block;">
   <button type="submit" class="btn btn-danger">Poista käyttäjä</button>
 </form>
-
-<!--- Jotain millä katsoa omat arviot? Ja omien arvioiden poisto---->
+{% endif %}
 {% endblock %}

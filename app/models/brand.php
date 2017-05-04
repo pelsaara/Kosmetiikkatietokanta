@@ -25,6 +25,9 @@ class Brand extends BaseModel {
     }
 
     public static function find($id) {
+        if (!is_numeric($id)) {
+            return NULL;
+        }
         $query = DB::connection()->prepare('SELECT * FROM Brand WHERE id = :id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
@@ -34,8 +37,9 @@ class Brand extends BaseModel {
                 'id' => $row['id'],
                 'name' => $row['name']
             ));
+            return $brand;
         }
-        return $brand;
+        return NULL;
     }
 
     public function save() {
@@ -50,7 +54,7 @@ class Brand extends BaseModel {
         $errors = array();
         $errors[] = parent::validate_not_null('Merkin nimi', $this->name);
         $errors[] = parent::validate_string_length('Merkin nimen', $this->name, 3);
-
+        $errors[] = parent::validate_string_max('Merkin nimen', $this->name, 30);
         return $errors;
     }
 

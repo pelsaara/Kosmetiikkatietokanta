@@ -44,4 +44,12 @@ class BaseModel {
         return $error;
     }
 
+    public function validate_string_max($nimi, $string, $length) {
+        $error = null;
+        if (strlen($string) > $length) {
+            $error = ($nimi . ' pituus ei saa olla pidempi kuin ' . $length . ' merkkiä!');
+        }
+        return $error;
+    }
+
 }

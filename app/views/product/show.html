@@ -19,8 +19,9 @@
 {% endfor %}
 
 <h3>Arvioita: </h3> 
-<p><button class="btn btn-primary">Lisää arvio</button> </p>
-
+<form method="get" action="{{base_path}}/product/{{product.id}}/comment" style="display: inline-block;">
+  <button type="submit" class="btn btn-primary">Lisää kommentti</button>
+</form> <br><br>
 {% for comment in product.comments %}
 <strong>{{comment.writername}}</strong><p>{{comment.text}}</p>
 {% endfor %}

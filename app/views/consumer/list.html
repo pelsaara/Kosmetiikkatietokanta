@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Käyttäjät</h1>
-<p> Tämä sivu toimii vain ylläpitäjälle.</p>
+<p> Tämä sivu näkyy vain ylläpitäjälle.</p>
 
 
 <table class="table table-striped table-bordered">
@@ -10,8 +10,6 @@
             <th>Nimi</th>
             <th>Salasana</th>
             <th>Ikä</th>
-            <th></th>
-            <th></th>
 
         </tr>
     </thead>
@@ -22,12 +20,6 @@
             <td>{{consumer.name}}</td>
             <td>{{consumer.password}}</td>
             <td>{{consumer.age}}</td>
-            <td><form method="get" action="{{base_path}}/consumer/{{consumer.id}}/edit" style="display: inline-block;">
-                    <button type="submit" class="btn btn-default">Muokkaa tietoja</button>
-                </form></td>
-            <td><form method="post" action="{{base_path}}/consumer/{{consumer.id}}/destroy" style="display: inline-block;">
-                    <button type="submit" class="btn btn-danger">Poista käyttäjä</button>
-                </form></td>
         </tr>
         {% endfor %}
     </tbody>

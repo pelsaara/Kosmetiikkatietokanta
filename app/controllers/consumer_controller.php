@@ -55,12 +55,14 @@ class ConsumerController extends BaseController {
 
     public static function edit($id) {
         self::check_logged_in();
+        self::check_logged_in_not_admin();
         $consumer = self::get_user_logged_in();
         View::make('consumer/edit.html', array('attributes' => $consumer));
     }
 
     public static function update($id) {
         self::check_logged_in();
+        self::check_logged_in_not_admin();
         $params = $_POST;
 
         $attributes = array(
@@ -82,6 +84,7 @@ class ConsumerController extends BaseController {
 
     public static function destroy($id) {
         self::check_logged_in();
+        self::check_logged_in_not_admin();
         $consumer = self::get_user_logged_in();
         $_SESSION['consumer'] = null;
         $consumer->delete();

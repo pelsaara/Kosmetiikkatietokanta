@@ -17,8 +17,8 @@ class CategoryController extends BaseController {
         $category = new Category($attributes);
         $errors = $category->errors();
         if (count($errors) == 0) {
-        $category->save();
-        Redirect::to('/category', array('message' => 'Kategorian lisäys onnistunut'));
+            $category->save();
+            Redirect::to('/category', array('message' => 'Kategorian lisäys onnistunut'));
         } else {
             View::make('/category/new.html', array('errors' => $errors, 'attributes' => $attributes));
         }
@@ -28,10 +28,15 @@ class CategoryController extends BaseController {
         self::check_logged_in();
         View::make('category/new.html');
     }
-    
-    public static function show($id){
-        $category = Category::find($id);
-        View::make('category/show.html', array('category' => $category));
-    }
 
+
+    public static function listProductsByCategory($id) {
+        $products = Product::findByCategory($id);
+        $category = Category::find($id);
+        if ($category != NULL) {
+            View::make('category/show.html', array('products' => $products, 'category' => $category));
+        } else {
+            Redirect::to('/category', array('error' => 'Kategoriaa ei löydy!'));
+        }
+    }
 }

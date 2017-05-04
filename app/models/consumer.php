@@ -83,6 +83,10 @@ class Consumer extends BaseModel {
         $errors = array();
         $errors[] = parent::validate_not_null('Nimi', $this->name);
         $errors[] = parent::validate_string_length('Nimen', $this->name, 3);
+        $errors[] = parent::validate_string_max('Nimen', $this->name, 30);
+        if ($this->name == 'Yllapitaja') {
+            $errors[] = ('Nimi ei voi olla Yllapitaja');
+        }
         return $errors;
     }
 
@@ -90,14 +94,18 @@ class Consumer extends BaseModel {
         $errors = array();
         $errors[] = parent::validate_not_null('Salasana', $this->password);
         $errors[] = parent::validate_string_length('Salasanan', $this->password, 5);
+        $errors[] = parent::validate_string_max('Salasanan', $this->password, 30);
         return $errors;
     }
-    
-        public function validate_age() {
+
+    public function validate_age() {
         $errors = array();
         $errors[] = parent::validate_not_null('Ikä', $this->age);
         if (!is_numeric($this->age)) {
             $errors[] = 'Ikä tulee ilmoittaa numeroina';
+        }
+        if ($this->age > 200 || $this->age < 0){
+            $errors[] = 'Iän tulee olla väliltä 0-199';
         }
 
         return $errors;
